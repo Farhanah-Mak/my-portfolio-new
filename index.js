@@ -37,3 +37,30 @@ window.addEventListener('scroll', ()=>{
 // toggle.addEventListener('change',()=>{
 //     document.body.classList.toggle('dark')
 // })
+
+
+  const words = ["Front-end Developer", "UI Designer"];
+  const typingElement = document.querySelector(".typing");
+  let wordIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+
+  function typeEffect() {
+    const currentWord = words[wordIndex];
+    const displayed = currentWord.substring(0, charIndex);
+    typingElement.textContent = displayed;
+
+    if (!isDeleting && charIndex < currentWord.length) {
+      charIndex++;
+      setTimeout(typeEffect, 120);
+    } else if (isDeleting && charIndex > 0) {
+      charIndex--;
+      setTimeout(typeEffect, 60);
+    } else {
+      isDeleting = !isDeleting;
+      if (!isDeleting) wordIndex = (wordIndex + 1) % words.length;
+      setTimeout(typeEffect, 1000);
+    }
+  }
+
+typeEffect();
